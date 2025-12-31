@@ -1,8 +1,17 @@
 import axios from "axios";
 import { auth } from "../firebase";
 
+const getBaseUrl = () => {
+    let url = import.meta.env.VITE_API_URL || "http://localhost:5000";
+    // Ensure the backend URL ends with /api because the backend routes are defined as /api/...
+    if (!url.endsWith("/api")) {
+        url += "/api";
+    }
+    return url;
+};
+
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000",
+    baseURL: getBaseUrl(),
 });
 
 api.interceptors.request.use(
