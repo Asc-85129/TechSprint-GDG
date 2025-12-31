@@ -1,11 +1,10 @@
 import axios from "axios";
-import { auth } from "../firebase"; // We still need firebase auth to get tokens
+import { auth } from "../firebase";
 
 const api = axios.create({
-    baseURL: "https://shushrutai-backend.onrender.com/api",
+    baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000",
 });
 
-// Request interceptor to add the auth token header to every request
 api.interceptors.request.use(
     async (config) => {
         const user = auth.currentUser;
